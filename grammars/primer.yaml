@@ -1,0 +1,149 @@
+roles:
+  actionable:
+    - type: [Button, Pressable, TouchableOpacity, Btn, IconButton]
+  primary-action:
+    - type: [Button, Pressable, TouchableOpacity, Btn]
+      props:
+        variant: primary
+  secondary-action:
+    - type: [Button, Pressable, TouchableOpacity, Btn]
+      props:
+        variant: [secondary, default, invisible]
+  danger-action:
+    - type: [Button, Pressable, TouchableOpacity, Btn]
+      props:
+        variant: [danger, destructive]
+    - type: [Button, Pressable, TouchableOpacity, Btn]
+      props:
+        destructive: true
+  navigational:
+    - type: [a, Link, Anchor, NavLink]
+    - props:
+        role: link
+  modal:
+    - type: [Dialog, Modal, AlertDialog, BottomSheet, ConfirmationDialog]
+    - props:
+        role: dialog
+  confirmation:
+    - type: [ConfirmationDialog, AlertDialog]
+    - type: [Dialog, Modal]
+      props:
+        variant: confirmation
+    - props:
+        role: alertdialog
+  region:
+    - type: [ButtonGroup, ActionList, Toolbar]
+    - props:
+        role: [region, toolbar, group]
+  form:
+    - type: [form, Form]
+    - props:
+        role: form
+  icon-button:
+    - type: [IconButton]
+    - type: [Button, Pressable]
+      props:
+        aria-label: '*'
+  submit-button:
+    - type: [Button, Pressable, Btn]
+      props:
+        type: submit
+  loading-state:
+    - props:
+        loading: true
+    - props:
+        isLoading: true
+  disabled-state:
+    - props:
+        disabled: true
+  menu:
+    - type: [Menu, ActionMenu, DropdownMenu]
+  menu-item:
+    - type: [MenuItem, ActionMenu.Item, ActionList.Item]
+    - props:
+        role: menuitem
+  footer:
+    - type: [Dialog.Footer, ModalFooter, DialogFooter, Modal.Footer]
+
+rules:
+  - id: primer-one-primary-per-region
+    shape: cardinality
+    scope:
+      role: region
+    params:
+      role: primary-action
+      exactly: 1
+    classId: primer.button.primary-emphasis
+    message: A region must contain exactly one primary action.
+
+  - id: primer-at-most-one-danger-per-region
+    shape: cardinality
+    scope:
+      role: region
+    params:
+      role: danger-action
+      atMost: 1
+    classId: primer.button.danger-restraint
+    message: A region may contain at most one danger action.
+
+  - id: primer-icon-button-labels-unique
+    shape: uniqueness
+    scope:
+      role: region
+    params:
+      role: icon-button
+      by: aria-label
+    classId: primer.button.icon-accessible-name
+    message: Icon buttons in a region must have unique accessible labels.
+
+  - id: primer-danger-needs-confirmation
+    shape: accompaniment
+    scope:
+      role: region
+    params:
+      role: danger-action
+      requires: confirmation
+    classId: primer.dialog.destructive-confirmation
+    message: A danger action must be accompanied by a confirmation in the same region.
+
+  - id: primer-menu-item-in-menu
+    shape: containment
+    params:
+      role: menu-item
+      inside: menu
+    classId: primer.actionmenu.item-containment
+    message: A menu item must be contained within a menu.
+
+  - id: primer-no-navigation-in-modal
+    shape: exclusion
+    params:
+      role: navigational
+      notInside: modal
+    classId: primer.dialog.no-navigation
+    message: A navigational element must not appear inside a modal dialog.
+
+  - id: primer-submit-requires-form
+    shape: dependency
+    params:
+      role: submit-button
+      requiresAncestor: form
+    classId: primer.form.submit-dependency
+    message: A submit button requires an ancestor form.
+
+  - id: primer-loading-excludes-disabled
+    shape: mutual-exclusion
+    scope:
+      role: actionable
+    params:
+      roles: [loading-state, disabled-state]
+    classId: primer.button.state-exclusivity
+    message: A button cannot be both loading and disabled at once.
+
+  - id: primer-footer-secondary-before-primary
+    shape: ordering
+    scope:
+      role: footer
+    params:
+      order: [secondary-action, primary-action]
+    classId: primer.dialog.footer-order
+    message: In a dialog footer the secondary action must come before the primary action.

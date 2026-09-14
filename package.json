@@ -1,0 +1,37 @@
+{
+  "name": "uigrammar",
+  "version": "0.0.1",
+  "description": "A checker for structural design-system rules over the UI element tree.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Hammed Ajibade",
+  "keywords": [
+    "design-system",
+    "linter",
+    "jsx",
+    "tsx",
+    "structural",
+    "grammar"
+  ],
+  "main": "src/index.js",
+  "bin": {
+    "uigrammar": "bin/uigrammar.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node bin/uigrammar.js check grammars/primer.yaml fixtures/bad.tsx fixtures/good.tsx"
+  },
+  "files": [
+    "bin",
+    "src",
+    "grammars",
+    "scripts",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@babel/parser": "^7.24.0",
+    "@babel/traverse": "^7.24.0",
+    "js-yaml": "^4.1.0"
+  }
+}
