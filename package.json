@@ -1,5 +1,5 @@
 {
-  "name": "uigrammar",
+  "name": "rulveo",
   "version": "0.0.1",
   "description": "A checker for structural design-system rules over the UI element tree.",
   "type": "module",
@@ -15,11 +15,11 @@
   ],
   "main": "src/index.js",
   "bin": {
-    "uigrammar": "bin/uigrammar.js"
+    "rulveo": "bin/rulveo.js"
   },
   "scripts": {
     "test": "node --test",
-    "check": "node bin/uigrammar.js check grammars/primer.yaml fixtures/bad.tsx fixtures/good.tsx"
+    "check": "node bin/rulveo.js check grammars/primer.yaml fixtures/bad.tsx fixtures/good.tsx"
   },
   "files": [
     "bin",

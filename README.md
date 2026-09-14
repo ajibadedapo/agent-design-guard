@@ -1,6 +1,6 @@
-# UI Grammar
+# Rulveo
 
-UI Grammar (`uigrammar`) is a checker for design-system rules that are
+Rulveo (`rulveo`) is a checker for design-system rules that are
 **structural**: they are properties of the UI element tree, not of any single
 node. Ordinary linters look at one node at a time (this Button has the wrong
 color, this input is missing a label). They cannot see rules that only exist in
@@ -21,7 +21,7 @@ isolation is wrong. The violation lives in the composition.
 
 Because validity is not preserved under composition, you cannot check a
 component in isolation and conclude the screen is correct. You have to evaluate
-rules over the assembled tree. That is what UI Grammar does.
+rules over the assembled tree. That is what Rulveo does.
 
 ## How it works
 
@@ -120,7 +120,7 @@ each with a `classId`).
 
 ```
 npm install
-npx uigrammar check grammars/primer.yaml fixtures/*.tsx
+npx rulveo check grammars/primer.yaml fixtures/*.tsx
 ```
 
 The CLI prints each violation as `file:line rule-id message`, ranked by file and

@@ -1,7 +1,7 @@
 import { loadGrammar } from './grammar.js';
 import { checkFiles } from './engine.js';
 
-const USAGE = 'usage: uigrammar check <grammar.yaml> <files...>';
+const USAGE = 'usage: rulveo check <grammar.yaml> <files...>';
 
 export function run(argv) {
   const [command, grammarPath, ...files] = argv;
