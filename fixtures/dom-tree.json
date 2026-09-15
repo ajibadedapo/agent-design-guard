@@ -1,0 +1,21 @@
+{
+  "role": "WebArea",
+  "name": "Checkout",
+  "children": [
+    {
+      "role": "region",
+      "name": "Order summary",
+      "children": [
+        { "role": "button", "name": "Edit cart" }
+      ]
+    },
+    {
+      "role": "dialog",
+      "name": "Confirm your order",
+      "children": [
+        { "role": "link", "name": "Back to home" },
+        { "role": "button", "name": "Place order" }
+      ]
+    }
+  ]
+}

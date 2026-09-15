@@ -1,0 +1,104 @@
+roles:
+  action:
+    - type: Button
+
+  primary-action:
+    - type: Button
+      props:
+        variant:
+          not: [secondary, ghost, danger]
+
+  secondary-action:
+    - type: Button
+      props:
+        variant: [secondary, ghost]
+
+  danger-action:
+    - type: Button
+      props:
+        variant: danger
+
+  touch-target:
+    - type: Pressable
+
+  modal:
+    - type: Sheet
+
+  sheet-part:
+    - type: [Sheet.Portal, Sheet.Overlay, Sheet.Content]
+
+  section:
+    - type: [Card, Sheet.Content]
+
+  field:
+    - type: [Field, SearchField]
+
+  loading-state:
+    - props:
+        loading:
+          present: true
+
+  disabled-state:
+    - props:
+        disabled:
+          present: true
+
+  navigational:
+    - type: [a, Link, NavLink, Anchor]
+    - props:
+        role: link
+
+rules:
+  - id: heroui-one-primary-per-section
+    shape: cardinality
+    scope:
+      role: section
+    params:
+      role: primary-action
+      atMost: 1
+    classId: servicepilot.button.one-primary-per-section
+    message: A section (Card or Sheet) must show at most one primary Button.
+
+  - id: heroui-danger-needs-confirmation
+    shape: accompaniment
+    scope: document
+    params:
+      role: danger-action
+      requires: modal
+    classId: servicepilot.destructive.confirmation-sheet
+    message: A destructive (variant=danger) action must be accompanied by a confirmation Sheet on the same screen.
+
+  - id: heroui-no-navigation-in-modal
+    shape: exclusion
+    params:
+      role: navigational
+      notInside: modal
+    classId: servicepilot.sheet.no-navigation
+    message: A navigational element must not appear inside a Sheet.
+
+  - id: heroui-sheet-part-inside-sheet
+    shape: containment
+    params:
+      role: sheet-part
+      inside: modal
+    classId: servicepilot.sheet.part-containment
+    message: A Sheet.Portal, Sheet.Overlay, or Sheet.Content must live inside a Sheet.
+
+  - id: heroui-button-loading-xor-disabled
+    shape: mutual-exclusion
+    scope:
+      role: action
+    params:
+      roles: [loading-state, disabled-state]
+    classId: servicepilot.button.state-exclusivity
+    message: A Button should not declare both loading and disabled at once.
+
+  - id: heroui-field-labels-unique-per-section
+    shape: uniqueness
+    scope:
+      role: section
+    params:
+      role: field
+      by: label
+    classId: servicepilot.field.unique-label
+    message: Fields within a section must have distinct labels.

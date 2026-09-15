@@ -4,6 +4,16 @@ function propMatches(actual, expected, key, props) {
   if (expected === '*') return Object.prototype.hasOwnProperty.call(props, key);
   if (Array.isArray(expected)) return expected.includes(actual);
   if (typeof expected === 'boolean') return Boolean(actual) === expected;
+  if (expected && typeof expected === 'object') {
+    if (Object.prototype.hasOwnProperty.call(expected, 'present')) {
+      return Object.prototype.hasOwnProperty.call(props, key) === Boolean(expected.present);
+    }
+    if (Object.prototype.hasOwnProperty.call(expected, 'not')) {
+      const forbidden = Array.isArray(expected.not) ? expected.not : [expected.not];
+      return !forbidden.includes(actual);
+    }
+    return false;
+  }
   return actual === expected;
 }
 

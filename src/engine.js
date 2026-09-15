@@ -1,5 +1,7 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import { parseSource } from './adapter.js';
+import { parseSnapshot, parseDomJson } from './adapters/dom.js';
 import { assignRoles } from './roles.js';
 import { evalRule } from './rules.js';
 
@@ -9,8 +11,13 @@ export function buildTree(source, grammar) {
   return root;
 }
 
-export function checkSource(grammar, source, file) {
-  const root = buildTree(source, grammar);
+export function buildTreeFromSnapshot(snapshot, grammar) {
+  const root = parseSnapshot(snapshot);
+  assignRoles(root, grammar.roles);
+  return root;
+}
+
+function evalAll(grammar, root, file) {
   const violations = [];
   for (const rule of grammar.rules) {
     for (const found of evalRule(root, rule)) {
@@ -18,6 +25,14 @@ export function checkSource(grammar, source, file) {
     }
   }
   return violations;
+}
+
+export function checkSource(grammar, source, file) {
+  return evalAll(grammar, buildTree(source, grammar), file);
+}
+
+export function checkSnapshot(grammar, snapshot, file) {
+  return evalAll(grammar, buildTreeFromSnapshot(snapshot, grammar), file);
 }
 
 export function rank(violations) {
@@ -28,11 +43,18 @@ export function rank(violations) {
   });
 }
 
+export function checkFile(grammar, file) {
+  const text = fs.readFileSync(file, 'utf8');
+  if (path.extname(file).toLowerCase() === '.json') {
+    return checkSnapshot(grammar, parseDomJson(text), file);
+  }
+  return checkSource(grammar, text, file);
+}
+
 export function checkFiles(grammar, files) {
   let all = [];
   for (const file of files) {
-    const source = fs.readFileSync(file, 'utf8');
-    all = all.concat(checkSource(grammar, source, file));
+    all = all.concat(checkFile(grammar, file));
   }
   return rank(all);
 }

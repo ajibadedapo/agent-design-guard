@@ -1,0 +1,14 @@
+{
+  "role": "WebArea",
+  "name": "Checkout",
+  "children": [
+    {
+      "role": "dialog",
+      "name": "Confirm your order",
+      "children": [
+        { "role": "text", "name": "You are about to place this order." },
+        { "role": "button", "name": "Place order" }
+      ]
+    }
+  ]
+}

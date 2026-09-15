@@ -42,7 +42,9 @@ function evalUniqueness(root, rule) {
   for (const scope of getScopeNodes(root, rule.scope)) {
     const seen = new Set();
     for (const node of subtree(scope).filter((n) => hasRole(n, rule.params.role))) {
-      const key = JSON.stringify(node.props[rule.params.by] ?? null);
+      const value = node.props[rule.params.by];
+      if (value == null) continue;
+      const key = JSON.stringify(value);
       if (seen.has(key)) out.push(violation(rule, node));
       else seen.add(key);
     }
