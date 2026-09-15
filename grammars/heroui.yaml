@@ -1,3 +1,22 @@
+language: servicepilot-heroui
+version: 1.0
+
+tokens:
+  color:
+    - color.fg.default
+    - color.fg.muted
+    - color.action.primary
+    - color.action.danger
+
+components:
+  Button:
+    variants: [primary, secondary, ghost, danger]
+    sizes: [sm, md, lg]
+    status: stable
+
+parameters:
+  maxPrimaryPerSection: 1
+
 roles:
   action:
     - type: Button
@@ -48,35 +67,68 @@ roles:
     - props:
         role: link
 
-rules:
+constraints:
+  - id: heroui-color-token
+    class: value
+    shape: token-value
+    params:
+      props: [color, backgroundColor]
+    classId: servicepilot.color.token-only
+    message: Colours must come from theme tokens, never a raw hex or rgb literal.
+
+  - id: heroui-no-native-modal
+    class: kind
+    shape: forbidden-kind
+    params:
+      forbid: [Modal, a]
+      replace:
+        Modal: Sheet
+        a: Link
+    classId: servicepilot.kind.no-native-modal
+    message: Modals must be the src/ui Sheet, never a react-native Modal or raw anchor.
+
+  - id: heroui-button-variant-schema
+    class: property
+    shape: property-schema
+    params:
+      component: Button
+      props: [variant, size]
+    classId: servicepilot.button.variant-schema
+    message: A Button variant and size must be drawn from the src/ui Button schema.
+
   - id: heroui-one-primary-per-section
+    class: structural
     shape: cardinality
     scope:
       role: section
     params:
       role: primary-action
-      atMost: 1
+      max:
+        param: maxPrimaryPerSection
     classId: servicepilot.button.one-primary-per-section
     message: A section (Card or Sheet) must show at most one primary Button.
 
   - id: heroui-danger-needs-confirmation
+    class: structural
     shape: accompaniment
     scope: document
     params:
       role: danger-action
-      requires: modal
+      requires: [modal]
     classId: servicepilot.destructive.confirmation-sheet
     message: A destructive (variant=danger) action must be accompanied by a confirmation Sheet on the same screen.
 
   - id: heroui-no-navigation-in-modal
-    shape: exclusion
+    class: structural
+    shape: containment
     params:
       role: navigational
-      notInside: modal
+      forbiddenInside: modal
     classId: servicepilot.sheet.no-navigation
     message: A navigational element must not appear inside a Sheet.
 
   - id: heroui-sheet-part-inside-sheet
+    class: structural
     shape: containment
     params:
       role: sheet-part
@@ -85,15 +137,19 @@ rules:
     message: A Sheet.Portal, Sheet.Overlay, or Sheet.Content must live inside a Sheet.
 
   - id: heroui-button-loading-xor-disabled
-    shape: mutual-exclusion
+    class: structural
+    shape: allowed-combination
     scope:
       role: action
     params:
       roles: [loading-state, disabled-state]
+      deny:
+        - [loading-state, disabled-state]
     classId: servicepilot.button.state-exclusivity
     message: A Button should not declare both loading and disabled at once.
 
   - id: heroui-field-labels-unique-per-section
+    class: structural
     shape: uniqueness
     scope:
       role: section

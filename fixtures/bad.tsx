@@ -1,46 +1,79 @@
 import React from 'react';
-import { Button, IconButton, ButtonGroup, Dialog, Menu, MenuItem, Link, ConfirmationDialog } from './ui';
+import {
+  Box,
+  Button,
+  IconButton,
+  ButtonGroup,
+  Dialog,
+  Link,
+  Field,
+  ConfirmDialog,
+  TitleBar,
+  PageActions,
+  Text
+} from './ui';
 
 export function Bad() {
   return (
     <>
+      <Box color="#B42318" />
+
+      <button>Delete</button>
+
+      <Button variant="frobnicate" label="Adjust" />
+
+      <Button variant="danger" label="Remove" />
+
       <ButtonGroup>
-        <Button variant="primary">Save</Button>
-        <Button variant="primary">Publish</Button>
+        <Button variant="primary" label="Save" />
+        <Button variant="primary" label="Publish" />
       </ButtonGroup>
 
       <ButtonGroup>
-        <Button variant="primary">Save</Button>
-        <Button variant="danger">Delete</Button>
-        <Button variant="danger">Purge</Button>
-        <ConfirmationDialog title="Are you sure?" />
+        <Button variant="danger" reversible={false} requiresConfirmation label="Delete" />
       </ButtonGroup>
-
-      <ButtonGroup>
-        <Button variant="primary">Save</Button>
-        <Button variant="danger">Delete</Button>
-      </ButtonGroup>
-
-      <ButtonGroup>
-        <Button variant="primary">Save</Button>
-        <IconButton aria-label="More" icon={Kebab} />
-        <IconButton aria-label="More" icon={Kebab} />
-      </ButtonGroup>
-
-      <MenuItem>Profile</MenuItem>
-
-      <Dialog title="Information">
-        <Link href="/home">Back to home</Link>
-      </Dialog>
-
-      <Button type="submit">Send</Button>
-
-      <Button loading disabled>Saving</Button>
 
       <Dialog.Footer>
-        <Button variant="primary">OK</Button>
-        <Button variant="secondary">Cancel</Button>
+        <Button variant="primary" label="Submit order" />
+        <Button variant="secondary" label="Cancel" />
       </Dialog.Footer>
+
+      <Dialog title="Information">
+        <Link href="/home" label="Home" />
+      </Dialog>
+
+      <ButtonGroup>
+        <Button variant="secondary" size="md" label="One" />
+        <Button variant="secondary" size="md" label="Two" />
+        <Button variant="secondary" size="sm" label="Three" />
+      </ButtonGroup>
+
+      <ButtonGroup>
+        <Button variant="primary" label="Alpha" />
+        <Button variant="ghost" label="Beta" />
+      </ButtonGroup>
+
+      <ButtonGroup>
+        <Button variant="secondary" label="OK" />
+      </ButtonGroup>
+
+      <Dialog title="Edit profile">
+        <form>
+          <Field label="Email" />
+        </form>
+      </Dialog>
+
+      <ButtonGroup>
+        <IconButton aria-label="More" />
+        <IconButton aria-label="More" />
+      </ButtonGroup>
+
+      <TitleBar>
+        <Button variant="primary" label="Save" />
+      </TitleBar>
+      <PageActions>
+        <Button variant="primary" label="Publish" />
+      </PageActions>
     </>
   );
 }

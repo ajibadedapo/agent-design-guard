@@ -1,36 +1,64 @@
+language: primer-demo
+version: 1.0
+
+tokens:
+  color:
+    - color.fg.default
+    - color.fg.muted
+    - color.action.primary
+    - color.action.danger
+    - color.bg.default
+  spacing:
+    - 0
+    - 4
+    - 8
+    - 12
+    - 16
+    - 24
+    - 32
+
+components:
+  Button:
+    variants: [primary, secondary, danger, ghost]
+    sizes: [sm, md, lg]
+    status: stable
+  LegacyButton:
+    status: deprecated
+    replacement: Button
+  Blink:
+    status: forbidden
+
+parameters:
+  maxPrimaryPerRegion: 1
+
 roles:
   actionable:
-    - type: [Button, Pressable, TouchableOpacity, Btn, IconButton]
+    - type: [Button, Pressable, IconButton, Btn]
   primary-action:
-    - type: [Button, Pressable, TouchableOpacity, Btn]
+    - type: [Button, Pressable, Btn]
       props:
-        variant: primary
+        variant:
+          not: [secondary, ghost, danger, destructive]
   secondary-action:
-    - type: [Button, Pressable, TouchableOpacity, Btn]
+    - type: [Button, Pressable, Btn]
       props:
-        variant: [secondary, default, invisible]
+        variant: [secondary, ghost]
   danger-action:
-    - type: [Button, Pressable, TouchableOpacity, Btn]
+    - type: [Button, Pressable, Btn]
       props:
         variant: [danger, destructive]
-    - type: [Button, Pressable, TouchableOpacity, Btn]
-      props:
-        destructive: true
+  confirmation:
+    - type: [ConfirmDialog, ConfirmationDialog, AlertDialog, BottomSheet]
+    - props:
+        role: alertdialog
+  modal:
+    - type: [Dialog, Modal, BottomSheet]
+    - props:
+        role: dialog
   navigational:
     - type: [a, Link, Anchor, NavLink]
     - props:
         role: link
-  modal:
-    - type: [Dialog, Modal, AlertDialog, BottomSheet, ConfirmationDialog]
-    - props:
-        role: dialog
-  confirmation:
-    - type: [ConfirmationDialog, AlertDialog]
-    - type: [Dialog, Modal]
-      props:
-        variant: confirmation
-    - props:
-        role: alertdialog
   region:
     - type: [ButtonGroup, ActionList, Toolbar]
     - props:
@@ -44,49 +72,152 @@ roles:
     - type: [Button, Pressable]
       props:
         aria-label: '*'
-  submit-button:
-    - type: [Button, Pressable, Btn]
-      props:
-        type: submit
-  loading-state:
-    - props:
-        loading: true
-    - props:
-        isLoading: true
-  disabled-state:
-    - props:
-        disabled: true
-  menu:
-    - type: [Menu, ActionMenu, DropdownMenu]
-  menu-item:
-    - type: [MenuItem, ActionMenu.Item, ActionList.Item]
-    - props:
-        role: menuitem
   footer:
-    - type: [Dialog.Footer, ModalFooter, DialogFooter, Modal.Footer]
+    - type: [Dialog.Footer, ModalFooter, DialogFooter]
+  title-bar:
+    - type: [TitleBar]
+  page-actions:
+    - type: [PageActions]
 
-rules:
+constraints:
+  - id: primer-color-token
+    class: value
+    shape: token-value
+    params:
+      props: [color]
+      tokenSet: color
+    classId: primer.color.token-only
+    message: A colour value must resolve to a colour token, not a raw literal.
+
+  - id: primer-no-native-button
+    class: kind
+    shape: forbidden-kind
+    params:
+      forbid: [button, input, a, select]
+      replace:
+        button: Button
+        input: Field
+        a: Link
+        select: Select
+    classId: primer.kind.no-native-elements
+    message: Native HTML elements must be replaced by design-system components.
+
+  - id: primer-button-variant-schema
+    class: property
+    shape: property-schema
+    params:
+      component: Button
+      props: [variant, size]
+    classId: primer.button.variant-schema
+    message: A Button variant and size must be drawn from its schema.
+
+  - id: primer-danger-requires-confirm-prop
+    class: property
+    shape: conditional-prop
+    params:
+      role: danger-action
+      when:
+        variant: [danger, destructive]
+      then:
+        prop: requiresConfirmation
+        present: true
+    classId: primer.button.danger-confirmation-prop
+    message: A danger Button must set requiresConfirmation.
+
   - id: primer-one-primary-per-region
+    class: structural
     shape: cardinality
     scope:
       role: region
     params:
       role: primary-action
-      exactly: 1
+      max:
+        param: maxPrimaryPerRegion
     classId: primer.button.primary-emphasis
-    message: A region must contain exactly one primary action.
+    message: A region may contain at most one primary action.
 
-  - id: primer-at-most-one-danger-per-region
-    shape: cardinality
+  - id: primer-irreversible-needs-confirmation
+    class: structural
+    shape: accompaniment
+    scope:
+      role: region
+    when:
+      reversible:
+        equals: false
+    params:
+      role: danger-action
+      requires: [confirmation]
+    classId: primer.dialog.destructive-confirmation
+    message: An irreversible danger action must be accompanied by a confirmation in the same region.
+
+  - id: primer-footer-order
+    class: structural
+    shape: ordering
+    scope:
+      role: footer
+    params:
+      order: [secondary-action, primary-action]
+    classId: primer.dialog.footer-order
+    message: In a dialog footer the secondary action must come before the primary action.
+
+  - id: primer-no-nav-in-modal
+    class: structural
+    shape: containment
+    params:
+      role: navigational
+      forbiddenInside: modal
+    classId: primer.dialog.no-navigation
+    message: A navigational element must not appear inside a modal.
+
+  - id: primer-group-consistent-size
+    class: structural
+    shape: sibling-consistency
     scope:
       role: region
     params:
-      role: danger-action
-      atMost: 1
-    classId: primer.button.danger-restraint
-    message: A region may contain at most one danger action.
+      role: actionable
+      prop: size
+    classId: primer.button.group-consistency
+    message: Buttons within a group must share the same size.
 
-  - id: primer-icon-button-labels-unique
+  - id: primer-allowed-button-combo
+    class: structural
+    shape: allowed-combination
+    scope:
+      role: region
+    params:
+      role: actionable
+      variants: variant
+      allow:
+        - [primary, secondary, danger]
+    classId: primer.button.combination-table
+    message: The set of button variants in a group must be an allowed combination.
+
+  - id: primer-label-not-generic
+    class: structural
+    shape: literal-list
+    params:
+      role: actionable
+      prop: label
+      deny: [OK, Confirm, Yes, Done]
+    classId: primer.button.label-grammar
+    message: A button label must not be a bare generic word.
+
+  - id: primer-dialog-form-fullscreen
+    class: structural
+    shape: conditional
+    params:
+      role: modal
+      when:
+        containsRole: form
+      then:
+        prop: fullScreen
+        present: true
+    classId: primer.dialog.form-fullscreen
+    message: A modal that contains a form must be full-screen.
+
+  - id: primer-icon-labels-unique
+    class: structural
     shape: uniqueness
     scope:
       role: region
@@ -96,54 +227,29 @@ rules:
     classId: primer.button.icon-accessible-name
     message: Icon buttons in a region must have unique accessible labels.
 
-  - id: primer-danger-needs-confirmation
-    shape: accompaniment
-    scope:
-      role: region
+  - id: primer-title-matches-page-primary
+    class: structural
+    shape: cross-region-equality
     params:
+      role: primary-action
+      prop: label
+      regions: [title-bar, page-actions]
+    classId: primer.page.title-primary-equality
+    message: The title-bar primary action must match the page-actions primary action.
+
+patterns:
+  destructive-action:
+    version: 1.0
+    trigger:
       role: danger-action
-      requires: confirmation
-    classId: primer.dialog.destructive-confirmation
-    message: A danger action must be accompanied by a confirmation in the same region.
-
-  - id: primer-menu-item-in-menu
-    shape: containment
-    params:
-      role: menu-item
-      inside: menu
-    classId: primer.actionmenu.item-containment
-    message: A menu item must be contained within a menu.
-
-  - id: primer-no-navigation-in-modal
-    shape: exclusion
-    params:
-      role: navigational
-      notInside: modal
-    classId: primer.dialog.no-navigation
-    message: A navigational element must not appear inside a modal dialog.
-
-  - id: primer-submit-requires-form
-    shape: dependency
-    params:
-      role: submit-button
-      requiresAncestor: form
-    classId: primer.form.submit-dependency
-    message: A submit button requires an ancestor form.
-
-  - id: primer-loading-excludes-disabled
-    shape: mutual-exclusion
-    scope:
-      role: actionable
-    params:
-      roles: [loading-state, disabled-state]
-    classId: primer.button.state-exclusivity
-    message: A button cannot be both loading and disabled at once.
-
-  - id: primer-footer-secondary-before-primary
-    shape: ordering
-    scope:
-      role: footer
-    params:
-      order: [secondary-action, primary-action]
-    classId: primer.dialog.footer-order
-    message: In a dialog footer the secondary action must come before the primary action.
+    roles: [danger-action, confirmation]
+    order: [danger-action, confirmation]
+    platform:
+      web:
+        confirmation: ConfirmDialog
+      ios:
+        confirmation: BottomSheet
+      android:
+        confirmation: BottomSheet
+    classId: primer.pattern.destructive-action
+    message: The confirmation must be realised with the platform-appropriate component.

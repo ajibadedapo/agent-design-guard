@@ -3,7 +3,7 @@ import path from 'node:path';
 import { parseSource } from './adapter.js';
 import { parseSnapshot, parseDomJson } from './adapters/dom.js';
 import { assignRoles } from './roles.js';
-import { evalRule } from './rules.js';
+import { evalRule, evalPatterns } from './rules.js';
 
 export function buildTree(source, grammar) {
   const root = parseSource(source);
@@ -17,22 +17,26 @@ export function buildTreeFromSnapshot(snapshot, grammar) {
   return root;
 }
 
-function evalAll(grammar, root, file) {
+function evalAll(grammar, root, file, platform) {
   const violations = [];
+  const ctx = { grammar, platform: platform || 'web' };
   for (const rule of grammar.rules) {
-    for (const found of evalRule(root, rule)) {
+    for (const found of evalRule(root, rule, ctx)) {
       violations.push({ ...found, file: file || '<source>' });
     }
+  }
+  for (const found of evalPatterns(root, grammar, ctx.platform)) {
+    violations.push({ ...found, file: file || '<source>' });
   }
   return violations;
 }
 
-export function checkSource(grammar, source, file) {
-  return evalAll(grammar, buildTree(source, grammar), file);
+export function checkSource(grammar, source, file, platform) {
+  return evalAll(grammar, buildTree(source, grammar), file, platform);
 }
 
-export function checkSnapshot(grammar, snapshot, file) {
-  return evalAll(grammar, buildTreeFromSnapshot(snapshot, grammar), file);
+export function checkSnapshot(grammar, snapshot, file, platform) {
+  return evalAll(grammar, buildTreeFromSnapshot(snapshot, grammar), file, platform);
 }
 
 export function rank(violations) {
@@ -43,18 +47,18 @@ export function rank(violations) {
   });
 }
 
-export function checkFile(grammar, file) {
+export function checkFile(grammar, file, platform) {
   const text = fs.readFileSync(file, 'utf8');
   if (path.extname(file).toLowerCase() === '.json') {
-    return checkSnapshot(grammar, parseDomJson(text), file);
+    return checkSnapshot(grammar, parseDomJson(text), file, platform);
   }
-  return checkSource(grammar, text, file);
+  return checkSource(grammar, text, file, platform);
 }
 
-export function checkFiles(grammar, files) {
+export function checkFiles(grammar, files, platform) {
   let all = [];
   for (const file of files) {
-    all = all.concat(checkFile(grammar, file));
+    all = all.concat(checkFile(grammar, file, platform));
   }
   return rank(all);
 }

@@ -32,5 +32,5 @@ test('infer output is a readable proposed-rules list and applies nothing', () =>
   const text = formatProposals(proposals);
   assert.match(text, /^proposed rules \(\d+\):/);
   assert.match(text, /\[cardinality\]/);
-  assert.equal(grammar.rules.length, 9);
+  assert.equal(grammar.rules.length, 14);
 });

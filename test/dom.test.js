@@ -20,13 +20,13 @@ test('a grammar catches a structural violation in a DOM tree', () => {
     fs.readFileSync(path.join(root, 'fixtures', 'dom-tree.json'), 'utf8')
   );
   const violations = checkSnapshot(grammar, snapshot, 'dom-tree.json');
-  const nav = violations.filter((v) => v.ruleId === 'primer-no-navigation-in-modal');
+  const nav = violations.filter((v) => v.ruleId === 'primer-no-nav-in-modal');
   assert.equal(nav.length, 1);
 });
 
 test('checkFile routes .json through the DOM adapter', () => {
   const bad = checkFile(grammar, path.join(root, 'fixtures', 'dom-tree.json'));
-  assert.ok(bad.some((v) => v.ruleId === 'primer-no-navigation-in-modal'));
+  assert.ok(bad.some((v) => v.ruleId === 'primer-no-nav-in-modal'));
   const clean = checkFile(grammar, path.join(root, 'fixtures', 'dom-clean.json'));
-  assert.equal(clean.filter((v) => v.ruleId === 'primer-no-navigation-in-modal').length, 0);
+  assert.equal(clean.filter((v) => v.ruleId === 'primer-no-nav-in-modal').length, 0);
 });

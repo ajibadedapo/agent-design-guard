@@ -1,36 +1,76 @@
 import React from 'react';
-import { Button, IconButton, ButtonGroup, Dialog, Menu, MenuItem, Text, ConfirmationDialog } from './ui';
+import {
+  Box,
+  Button,
+  IconButton,
+  ButtonGroup,
+  Dialog,
+  Field,
+  ConfirmDialog,
+  TitleBar,
+  PageActions,
+  Text
+} from './ui';
 
 export function Good() {
   return (
     <>
+      <Box color="color.action.primary" />
+
+      <Button variant="primary" label="Adjust" />
+
+      <Button variant="danger" requiresConfirmation label="Remove" />
+
       <ButtonGroup>
-        <Button variant="primary">Save</Button>
-        <Button variant="danger">Delete</Button>
-        <ConfirmationDialog title="Confirm delete" />
-        <IconButton aria-label="More actions" icon={Kebab} />
-        <IconButton aria-label="Overflow menu" icon={Dots} />
+        <Button variant="primary" label="Save" />
+        <Button variant="secondary" label="Cancel" />
       </ButtonGroup>
 
-      <Menu>
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>Settings</MenuItem>
-      </Menu>
-
-      <Dialog title="Details">
-        <Text>Read only content</Text>
-      </Dialog>
-
-      <form>
-        <Button type="submit">Send</Button>
-      </form>
-
-      <Button loading>Saving</Button>
+      <ButtonGroup>
+        <Button variant="danger" reversible={false} requiresConfirmation label="Delete" />
+        <ConfirmDialog title="Delete this item?" />
+      </ButtonGroup>
 
       <Dialog.Footer>
-        <Button variant="secondary">Cancel</Button>
-        <Button variant="primary">OK</Button>
+        <Button variant="secondary" label="Cancel" />
+        <Button variant="primary" label="Submit" />
       </Dialog.Footer>
+
+      <Dialog title="Details">
+        <Text label="Read only content" />
+      </Dialog>
+
+      <ButtonGroup>
+        <Button variant="secondary" size="md" label="One" />
+        <Button variant="secondary" size="md" label="Two" />
+      </ButtonGroup>
+
+      <ButtonGroup>
+        <Button variant="primary" label="Alpha" />
+        <Button variant="secondary" label="Beta" />
+      </ButtonGroup>
+
+      <ButtonGroup>
+        <Button variant="secondary" label="Discard draft" />
+      </ButtonGroup>
+
+      <Dialog title="Edit profile" fullScreen>
+        <form>
+          <Field label="Email" />
+        </form>
+      </Dialog>
+
+      <ButtonGroup>
+        <IconButton aria-label="More" />
+        <IconButton aria-label="Less" />
+      </ButtonGroup>
+
+      <TitleBar>
+        <Button variant="primary" label="Save" />
+      </TitleBar>
+      <PageActions>
+        <Button variant="primary" label="Save" />
+      </PageActions>
     </>
   );
 }

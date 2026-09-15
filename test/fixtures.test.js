@@ -9,10 +9,9 @@ test('good.tsx conforms with zero violations', () => {
   assert.equal(violations.length, 0);
 });
 
-test('bad.tsx yields exactly nine violations, one per rule', () => {
+test('bad.tsx yields exactly one violation per constraint', () => {
   const violations = checkFiles(grammar, [path.join(root, 'fixtures', 'bad.tsx')]);
-  assert.equal(violations.length, 9);
+  assert.equal(violations.length, grammar.rules.length);
   const triggered = new Set(violations.map((v) => v.ruleId));
-  assert.equal(triggered.size, 9);
   assert.equal(triggered.size, grammar.rules.length);
 });
