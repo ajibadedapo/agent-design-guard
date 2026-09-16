@@ -1,0 +1,213 @@
+ID,System,Component / pattern,Rule (paraphrased),Class,Checked by existing tool?,Expressible in draft schema,Notes,Source
+R001,Primer,Button,Only one primary button per page where possible,S,none,yes,"Cardinality, scope=page",https://primer.style/product/components/button/guidelines/
+R002,Primer,Button,Never more than one primary button in a group of buttons,S,none,yes,"Cardinality, scope=group",https://primer.style/product/components/button/guidelines/
+R003,Primer,Button,Danger variant should normally prompt a confirmation dialog,S,none,yes,Accompaniment: danger trigger requires confirmation,https://primer.style/product/components/button/guidelines/
+R004,Primer,Button,Labels must not contain line breaks,P,none,yes,Property: no newline in label,https://primer.style/product/components/button/guidelines/
+R005,Primer,Button,"Labels use sentence case, never all caps",P,none,yes,Regex heuristic; proper nouns need exceptions,https://primer.style/product/components/button/guidelines/
+R006,Primer,Button,Do not remove default focus styles,D,axe (partial),ext,Computed style at runtime,https://primer.style/product/components/button/guidelines/
+R007,Primer,Button,Primary button goes at the end of a ButtonGroup,S,none,yes,Ordering within group,https://primer.style/product/components/button/guidelines/
+R008,Primer,Button,"Pair a primary with a default button, not multiple primaries",S,none,yes,"Duplicate of cardinality rule, kept for count",https://primer.style/product/components/button/guidelines/
+R009,Primer,Button,An inactive button must respond to click with a dialog explaining why,D,none,ext,Behavioural; needs event tracing,https://primer.style/product/components/button/guidelines/
+R010,Primer,Button,"When using an inactive button, something else on the page should explain the outage",I,none,no,Page-level semantics,https://primer.style/product/components/button/guidelines/
+R011,Primer,Button,"Multiple selections shown as &apos;N selected&apos;, not comma-separated",P,none,ext,Literal pattern on label text,https://primer.style/product/components/button/guidelines/
+R012,Primer,Button,Default variant used for most actions; other variants signal hierarchy,I,none,no,Soft guidance,https://primer.style/product/components/button/guidelines/
+R013,Primer,Button,Keep labels succinct,I,none,no,No threshold given,https://primer.style/product/components/button/guidelines/
+R014,Primer,ButtonGroup,Normally only default-type buttons inside a ButtonGroup,S,none,yes,Containment + variant,https://primer.style/product/components/button-group/guidelines/
+R015,Primer,ButtonGroup,At most one primary button in a ButtonGroup,S,none,yes,Cardinality,https://primer.style/product/components/button-group/guidelines/
+R016,Primer,ButtonGroup,Avoid grouping too many buttons,S,none,ext,Cardinality with unspecified threshold,https://primer.style/product/components/button-group/guidelines/
+R017,Primer,ButtonGroup,Do not use ButtonGroup to indicate selection; use SegmentedControl,I,none,no,Requires knowing the group&apos;s purpose,https://primer.style/product/components/button-group/guidelines/
+R018,Primer,ButtonGroup,Do not use ButtonGroup as tab navigation; use UnderlineNav,I,none,no,Purpose-based substitution,https://primer.style/product/components/button-group/guidelines/
+R019,Primer,ButtonGroup,Only group buttons with related functionality,I,none,no,,https://primer.style/product/components/button-group/guidelines/
+R020,Primer,IconButton,IconButton must have a tooltip with a text label,S,axe (partial),yes,"Accompaniment; axe catches missing name, not tooltip",https://primer.style/product/components/icon-button/guidelines/
+R021,Primer,IconButton,Only use IconButton when the icon is easily understood,I,none,no,,https://primer.style/product/components/icon-button/guidelines/
+R022,Primer,Dialog,Title is required for every dialog,P,none,yes,Required property,https://primer.style/product/components/dialog/guidelines/
+R023,Primer,Dialog,Close button is required and may not be visually hidden,S,none,yes,Required child + property,https://primer.style/product/components/dialog/guidelines/
+R024,Primer,Dialog,Primary footer actions are right-aligned; secondary may sit left,S,none,yes,Ordering by role within footer,https://primer.style/product/components/dialog/guidelines/
+R025,Primer,Dialog,Add a footer divider when the body scrolls,D,none,ext,Depends on rendered overflow,https://primer.style/product/components/dialog/guidelines/
+R026,Primer,Dialog,"Backdrop click dismisses, unless the dialog contains a form",S,none,yes,Conditional on containment,https://primer.style/product/components/dialog/guidelines/
+R027,Primer,Dialog,Content stays inside a 16px safe area,V,stylelint (partial),yes,Spacing token,https://primer.style/product/components/dialog/guidelines/
+R028,Primer,Dialog,Close button sits 8px from the edges,V,none,yes,Spacing token,https://primer.style/product/components/dialog/guidelines/
+R029,Primer,Dialog,Footer buttons always inside the safe area,D,none,ext,Layout result,https://primer.style/product/components/dialog/guidelines/
+R030,Primer,Dialog,Prefer single-column layouts; avoid a whole page inside a dialog,I,none,no,Proxy: multi-column grid inside Dialog,https://primer.style/product/components/dialog/guidelines/
+R031,Primer,Dialog,Avoid side navigation inside a dialog,S,none,yes,Containment: NavList not inside Dialog,https://primer.style/product/components/dialog/guidelines/
+R032,Primer,Dialog,Up to two nested dialogs acceptable; more than three discouraged,S,none,yes,Nesting depth,https://primer.style/product/components/dialog/guidelines/
+R033,Primer,Dialog,Esc closes only the top-most dialog,D,none,ext,Runtime focus/keyboard,https://primer.style/product/components/dialog/guidelines/
+R034,Primer,Dialog,"On closing a nested dialog, focus returns to its trigger in the parent dialog",D,none,ext,Runtime focus,https://primer.style/product/components/dialog/guidelines/
+R035,Primer,Dialog,Dialogs must adapt to narrow viewports,R,none,yes,Responsive transformation,https://primer.style/product/components/dialog/guidelines/
+R036,Primer,Dialog,Centered dialogs keep 16px between frame and viewport,V,none,yes,,https://primer.style/product/components/dialog/guidelines/
+R037,Primer,Dialog,Left side sheets reserved for global navigation,I,none,no,Purpose semantics; proxy possible via region role,https://primer.style/product/components/dialog/guidelines/
+R038,Primer,Dialog,Do not use side sheets for create/edit forms,S,none,yes,Containment: form inside position=left/right,https://primer.style/product/components/dialog/guidelines/
+R039,Primer,Dialog,Side sheets must show a backdrop covering global navigation,S,none,yes,Required sibling/overlay,https://primer.style/product/components/dialog/guidelines/
+R040,Primer,Dialog,Only one side sheet at a time,S,none,yes,Cardinality,https://primer.style/product/components/dialog/guidelines/
+R041,Primer,Dialog,Avoid side sheets on non-full-width pages unless a global action,I,none,no,,https://primer.style/product/components/dialog/guidelines/
+R042,Primer,Dialog,Bottom sheet is full width and dims the screen,PL,none,yes,Narrow-viewport realisation,https://primer.style/product/components/dialog/guidelines/
+R043,Primer,Dialog,"Bottom sheet in landscape has max width 480px, centered",R,none,yes,Breakpoint-conditional value,https://primer.style/product/components/dialog/guidelines/
+R044,Primer,Dialog,Dialogs with input fields must use full-screen variant on narrow viewports,R,none,yes,Conditional on containment + viewport,https://primer.style/product/components/dialog/guidelines/
+R045,Primer,Dialog,"Before using extra-large, consider a page instead",I,none,no,,https://primer.style/product/components/dialog/guidelines/
+R046,Primer,Dialog,Confirmation dialogs use the larger title size,P,none,yes,Role -> property,https://primer.style/product/components/dialog/guidelines/
+R047,Primer,Delete pattern,Use ConfirmationDialog for most delete confirmations,K,none,yes,Kind substitution for role=confirmation,https://primer.style/product/scenario-patterns/delete/
+R048,Primer,Delete pattern,Type-to-confirm flows use Dialog with returnFocusRef handled,P,none,yes,Required prop in a context,https://primer.style/product/scenario-patterns/delete/
+R049,Primer,Delete pattern,Delete options in menus use ActionList.Item variant=danger with TrashIcon,P,none,yes,Role -> variant + icon,https://primer.style/product/scenario-patterns/delete/
+R050,Primer,Delete pattern,Confirm button is variant=danger with an explicit action label,P,none,yes,"Variant + label not in {Yes,OK,Confirm}",https://primer.style/product/scenario-patterns/delete/
+R051,Primer,Delete pattern,Show a loading state on confirm when deletion is slow,D,none,ext,Runtime,https://primer.style/product/scenario-patterns/delete/
+R052,Primer,Delete pattern,"After deleting the page&apos;s primary resource, redirect to the parent page",D,none,no,Cross-screen flow; outside single-tree model,https://primer.style/product/scenario-patterns/delete/
+R053,Primer,Delete pattern,"After in-place deletion, move focus to a stable parent or previous control",D,none,ext,Runtime focus,https://primer.style/product/scenario-patterns/delete/
+R054,Primer,Delete pattern,No visible success banner by default; announce via live region,D,axe (partial),ext,Absence check + runtime,https://primer.style/product/scenario-patterns/delete/
+R055,Primer,Delete pattern,On failure keep the dialog open and show a critical Banner inside it,D,none,ext,Runtime state,https://primer.style/product/scenario-patterns/delete/
+R056,Primer,Delete pattern,High-impact deletions live in a settings danger zone,I,none,no,,https://primer.style/product/scenario-patterns/delete/
+R057,Primer,Delete pattern,"Type-to-confirm only for irreversible, wide-blast-radius actions",I,none,no,Requires impact semantics,https://primer.style/product/scenario-patterns/delete/
+R058,Primer,Delete pattern,No confirmation dialog for reversible actions,I,none,no,Requires reversibility semantics,https://primer.style/product/scenario-patterns/delete/
+R059,Primer,Delete pattern,Prefer undo over confirmation where reversal is possible,I,none,no,,https://primer.style/product/scenario-patterns/delete/
+R060,Primer,Delete pattern,Name what is affected; never a generic &apos;Are you sure?&apos;,P,none,ext,Literal blacklist on title,https://primer.style/product/scenario-patterns/delete/
+R061,Primer,Delete pattern,Confirm label states the action; not Yes/OK/Confirm,P,none,yes,Literal blacklist,https://primer.style/product/scenario-patterns/delete/
+R062,Primer,Delete pattern,Say &apos;Remove&apos; for disassociation and &apos;Delete&apos; for destruction,I,none,no,Needs data semantics,https://primer.style/product/scenario-patterns/delete/
+R063,Carbon,Button,Each page should have only one primary button,S,none,yes,"Cardinality, scope=page",https://carbondesignsystem.com/components/button/usage/
+R064,Carbon,Button,Do not use buttons as navigation; use links,P,eslint (partial),yes,Button with href/navigation handler,https://carbondesignsystem.com/components/button/usage/
+R065,Carbon,Button,"Primary appears once per screen, excluding header, modal and side panel",S,none,yes,Scoped cardinality with exclusions,https://carbondesignsystem.com/components/button/usage/
+R066,Carbon,Button,Secondary only in conjunction with a primary; never in isolation,S,none,yes,Accompaniment,https://carbondesignsystem.com/components/button/usage/
+R067,Carbon,Button,"Secondary performs the negative action (Cancel/Back), never a positive one",I,none,no,Proxy: label whitelist,https://carbondesignsystem.com/components/button/usage/
+R068,Carbon,Button,"Danger available only as primary, tertiary or ghost styles",P,none,yes,Allowed variant combinations,https://carbondesignsystem.com/components/button/usage/
+R069,Carbon,Button,"Label is left-aligned, never centered",V,stylelint,yes,text-align,https://carbondesignsystem.com/components/button/usage/
+R070,Carbon,Button,Icon right-aligned in labelled buttons; centered in icon-only,V,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R071,Carbon,Button,Do not mix button sizes within a group,S,none,yes,Sibling property equality,https://carbondesignsystem.com/components/button/usage/
+R072,Carbon,Button,A layout has a single high-emphasis button,S,none,yes,Cardinality,https://carbondesignsystem.com/components/button/usage/
+R073,Carbon,Button,Never two high-emphasis buttons in a group,S,none,yes,Cardinality,https://carbondesignsystem.com/components/button/usage/
+R074,Carbon,Button,Only group calls to action that relate to one another,I,none,no,,https://carbondesignsystem.com/components/button/usage/
+R075,Carbon,Button,"Primary is left-aligned on full pages, bottom-right in wizards and dialogs",S,none,yes,Context-conditional position,https://carbondesignsystem.com/components/button/usage/
+R076,Carbon,Button,"Buttons inside notifications, search fields and data tables are right-aligned",S,none,yes,Containment -> alignment,https://carbondesignsystem.com/components/button/usage/
+R077,Carbon,Button,"Fixed-width button: 16px left padding, 64px right of label",V,stylelint,yes,Spacing values,https://carbondesignsystem.com/components/button/usage/
+R078,Carbon,Button,Fluid-width buttons preferred over fixed in layouts,I,none,no,,https://carbondesignsystem.com/components/button/usage/
+R079,Carbon,Button,Related buttons in a group have the same width,D,none,ext,Rendered width equality,https://carbondesignsystem.com/components/button/usage/
+R080,Carbon,Button,Fluid buttons are never left-aligned,V,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R081,Carbon,Button,Tertiary buttons never used in fluid arrangements,S,none,yes,Variant forbidden in context,https://carbondesignsystem.com/components/button/usage/
+R082,Carbon,Button,1px $button-separator border between fluid buttons,V,stylelint,yes,Token reference,https://carbondesignsystem.com/components/button/usage/
+R083,Carbon,Button,"Primary sits right of secondary in dialogs/wizards, left on full pages",S,none,yes,Context-conditional ordering,https://carbondesignsystem.com/components/button/usage/
+R084,Carbon,Button,In vertical stacks the primary is always on top,S,none,yes,Ordering,https://carbondesignsystem.com/components/button/usage/
+R085,Carbon,Button,Two-button groups limited to listed combinations (e.g. primary+secondary),S,none,yes,Allowed sibling combinations,https://carbondesignsystem.com/components/button/usage/
+R086,Carbon,Button,Three-button groups limited to listed combinations,S,none,yes,Allowed sibling combinations,https://carbondesignsystem.com/components/button/usage/
+R087,Carbon,Button,Do not use secondary alongside non-primary buttons,S,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R088,Carbon,Button,Do not use tertiary with danger-tertiary,S,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R089,Carbon,Button,Do not use primary with danger-ghost,S,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R090,Carbon,Button,Do not use tertiary with danger-ghost,S,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R091,Carbon,Button,Use {verb}+{noun} labels except for common actions,I,none,no,Needs POS tagging; whitelist proxy,https://carbondesignsystem.com/components/button/usage/
+R092,Carbon,Button,Never a noun-only label,I,none,no,Needs POS tagging,https://carbondesignsystem.com/components/button/usage/
+R093,Carbon,Button,Sentence case labels,P,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R094,Carbon,Button,"In RTL the button is mirrored: label right, icon left",PL,none,yes,Locale realisation,https://carbondesignsystem.com/components/button/usage/
+R095,Carbon,Button,Wrap long labels to a second line; never truncate,V,stylelint,yes,No text-overflow: ellipsis,https://carbondesignsystem.com/components/button/usage/
+R096,Carbon,Button,Primary takes default focus when a dialog opens with no other actionable control,D,none,ext,Runtime focus,https://carbondesignsystem.com/components/button/usage/
+R097,Carbon,Button,Enter on a non-actionable field activates the primary button,D,none,ext,Runtime,https://carbondesignsystem.com/components/button/usage/
+R098,Carbon,Button,Button is disabled while inline loading,P,none,yes,loading => disabled,https://carbondesignsystem.com/components/button/usage/
+R099,Carbon,Button,A second primary is allowed only inside a temporarily launched flow (e.g. side panel),S,none,yes,Scoped exception,https://carbondesignsystem.com/components/button/usage/
+R100,Carbon,Button,Page header uses tertiary when content below has a primary; never primary in both,S,none,yes,Cross-region cardinality,https://carbondesignsystem.com/components/button/usage/
+R101,Carbon,Button,Data-table toolbar action is ghost if another primary exists on the page,S,none,yes,Cross-region conditional,https://carbondesignsystem.com/components/button/usage/
+R102,Carbon,Button,Ghost buttons in cards should touch two container edges,D,none,ext,Layout geometry,https://carbondesignsystem.com/components/button/usage/
+R103,Carbon,Button,Ghost button full width in side panels of 480px or narrower,R,none,yes,Container-size conditional,https://carbondesignsystem.com/components/button/usage/
+R104,Carbon,Button,"Ghost label aligns with body text, not the button edge",D,none,ext,Layout geometry,https://carbondesignsystem.com/components/button/usage/
+R105,Carbon,Button,Required destructive steps use primary-danger; optional ones use tertiary/ghost-danger,I,none,no,Needs workflow semantics,https://carbondesignsystem.com/components/button/usage/
+R106,Carbon,Button,"Icons are 16px in buttons, 20px in large expressive buttons",V,stylelint,yes,,https://carbondesignsystem.com/components/button/usage/
+R107,Carbon,Button,Icons always appear right of the label,V,none,yes,Note: Polaris says left,https://carbondesignsystem.com/components/button/usage/
+R108,Carbon,Button,Icon colour must match the label colour,V,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R109,Carbon,Button,Icons must relate directly to the action,I,none,no,,https://carbondesignsystem.com/components/button/usage/
+R110,Carbon,Button,8px between label and icon in ghost buttons,V,stylelint,yes,,https://carbondesignsystem.com/components/button/usage/
+R111,Carbon,Button,"Universal actions map to fixed icons (Delete -> Trash can, Add -> Add, ...)",P,none,yes,Label/action -> icon mapping,https://carbondesignsystem.com/components/button/usage/
+R112,Carbon,Button,Never use a defined universal icon for a different action,P,none,yes,,https://carbondesignsystem.com/components/button/usage/
+R113,Carbon,Button,Any CTA opening a new tab shows the Launch icon,P,none,yes,target=_blank => icon,https://carbondesignsystem.com/components/button/usage/
+R114,Carbon,Button,"Within a button group, all buttons have icons or none do",S,none,yes,Sibling consistency,https://carbondesignsystem.com/components/button/usage/
+R115,Carbon,Button,"Use default icon variants, never filled (except status icons)",K,none,yes,Forbidden icon kinds,https://carbondesignsystem.com/components/button/usage/
+R116,Carbon,Button,Icon-only buttons used sparingly; only for recognisable icons or toolbars,I,none,no,,https://carbondesignsystem.com/components/button/usage/
+R117,Carbon,Button,Icon-only buttons always require a tooltip,S,axe (partial),yes,Accompaniment,https://carbondesignsystem.com/components/button/usage/
+R118,Carbon,Button,Do not change the colour token of icon-only ghost buttons,V,stylelint,yes,Token override forbidden,https://carbondesignsystem.com/components/button/usage/
+R119,Carbon,Button,Danger buttons cannot be icon-only,P,none,yes,variant=danger => label required,https://carbondesignsystem.com/components/button/usage/
+R120,Carbon,Dialog pattern,Title required; brief and describing the task,P,none,yes,Required prop; brevity is intent,https://carbondesignsystem.com/patterns/dialog-pattern/
+R121,Carbon,Dialog pattern,"Action labels are descriptive (Add, Delete, Save); avoid Done/OK",P,none,yes,Literal blacklist,https://carbondesignsystem.com/patterns/dialog-pattern/
+R122,Carbon,Dialog pattern,Close X dismisses without submitting data,D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R123,Carbon,Dialog pattern,Do not use a dialog for content unrelated to the workflow,I,none,no,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R124,Carbon,Dialog pattern,Do not display complex or large data in a dialog,I,none,no,Proxy: DataTable containment,https://carbondesignsystem.com/patterns/dialog-pattern/
+R125,Carbon,Dialog pattern,Do not recreate a full page inside a dialog,I,none,no,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R126,Carbon,Dialog pattern,"Dialogs must be user-triggered, never system-generated",D,none,ext,Event provenance,https://carbondesignsystem.com/patterns/dialog-pattern/
+R127,Carbon,Dialog pattern,Modal for critical/required input; non-modal for optional tasks,I,none,no,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R128,Carbon,Dialog pattern,"Background-process alerts use a toast, not a dialog",I,none,no,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R129,Carbon,Dialog pattern,Confirmation dialogs: title and button reflect the action,P,none,ext,Literal pattern,https://carbondesignsystem.com/patterns/dialog-pattern/
+R130,Carbon,Dialog pattern,Destructive or irreversible confirmations use the transactional danger modal,P,none,yes,Role -> variant,https://carbondesignsystem.com/patterns/dialog-pattern/
+R131,Carbon,Dialog pattern,Never nest modals,S,none,yes,Nesting depth = 0 (contrast: Primer allows 2),https://carbondesignsystem.com/patterns/dialog-pattern/
+R132,Carbon,Dialog pattern,Never make a modal full page; use a page,I,none,no,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R133,Carbon,Dialog pattern,Passive modals close on outside click; transactional do not,D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R134,Carbon,Dialog pattern,Cancel is the outermost left action; primary the outermost right,S,none,yes,Ordering,https://carbondesignsystem.com/patterns/dialog-pattern/
+R135,Carbon,Dialog pattern,Only one primary action per dialog,S,none,yes,Cardinality,https://carbondesignsystem.com/patterns/dialog-pattern/
+R136,Carbon,Dialog pattern,Dialog buttons are full-bleed and attached to the bottom,V,stylelint,yes,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R137,Carbon,Dialog pattern,"Single button: right side, 50% width, bleeds to edge",V,none,yes,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R138,Carbon,Dialog pattern,"Two buttons: secondary left, primary right, 50% each",S,none,yes,Ordering + width,https://carbondesignsystem.com/patterns/dialog-pattern/
+R139,Carbon,Dialog pattern,"Three buttons: 25% each, right-aligned; only the rightmost may be primary",S,none,yes,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R140,Carbon,Dialog pattern,Progress dialogs: Cancel ghost left; Previous secondary and Next primary right,S,none,yes,Role-based ordering,https://carbondesignsystem.com/patterns/dialog-pattern/
+R141,Carbon,Dialog pattern,On the final step the Next label changes to the final action,I,none,no,Flow-dependent,https://carbondesignsystem.com/patterns/dialog-pattern/
+R142,Carbon,Dialog pattern,Initial focus on the first input; focus trapped until closed,D,axe (partial),ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R143,Carbon,Dialog pattern,Body scrolls while header and footer stay fixed,D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R144,Carbon,Dialog pattern,Validate before closing; invalid entries keep the dialog open with inline errors,D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R145,Carbon,Dialog pattern,Inline validation runs on blur,D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R146,Carbon,Dialog pattern,Server-side failure shows an inline notification,D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R147,Carbon,Dialog pattern,"Prefer bounded controls (radio, dropdown) to reduce invalid input",I,none,no,,https://carbondesignsystem.com/patterns/dialog-pattern/
+R148,Carbon,Dialog pattern,"While loading, overlay the body and disable the primary action",D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R149,Carbon,Dialog pattern,Avoid links that navigate away from the dialog,S,none,yes,Containment: navigating Link inside Modal,https://carbondesignsystem.com/patterns/dialog-pattern/
+R150,Carbon,Dialog pattern,Avoid accordions and tabs inside dialogs,S,none,yes,Containment,https://carbondesignsystem.com/patterns/dialog-pattern/
+R151,Carbon,Dialog pattern,"Avoid data tables in dialogs; if present, no batch actions",S,none,yes,Containment + child constraint,https://carbondesignsystem.com/patterns/dialog-pattern/
+R152,Carbon,Dialog pattern,Focus returns to the invoking element on close,D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R153,Carbon,Dialog pattern,Do not put first focus on a button when inputs exist,D,none,ext,Runtime; conditional on containment,https://carbondesignsystem.com/patterns/dialog-pattern/
+R154,Carbon,Dialog pattern,"Tab order: body, primary, secondary, close",D,none,ext,Runtime,https://carbondesignsystem.com/patterns/dialog-pattern/
+R155,Polaris,Common actions,"Every action has a text label, an icon, or both",S,axe (partial),yes,Required child,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R156,Polaris,Common actions,"Use icons in place of text for common, well-known actions",I,none,no,,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R157,Polaris,Common actions,Keep action labels short; no unnecessary words,I,none,no,,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R158,Polaris,Common actions,Icons go to the left of the label,V,none,yes,Contradicts Carbon (right),https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R159,Polaris,Common actions,Use the emphasis colour role for actions inside editors,V,none,yes,Context-conditional token,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R160,Polaris,Common actions,Use a tertiary icon button for actions on list and table rows,S,none,yes,Containment -> variant,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R161,Polaris,Common actions,No more than two shaped/filled buttons within a card,S,none,yes,Scoped cardinality,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R162,Polaris,Common actions,Delete icon accompanies destructive items in an action list,P,none,yes,,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R163,Polaris,Common actions,Delete actions always at the bottom of an action list,S,none,yes,Ordering,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R164,Polaris,Common actions,"List-item delete is inline right, tertiary, with the delete icon",S,none,yes,Position + variant + icon,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R165,Polaris,Common actions,Show row delete actions on hover for cursor users,D,none,ext,Runtime,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R166,Polaris,Common actions,Do not overuse critical-styled buttons in a single view,S,none,ext,Soft cardinality,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R167,Polaris,Common actions,Do not pair a primary-critical button with jarring other variants,S,none,ext,"Sibling combination, underspecified",https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R168,Polaris,Common actions,Use the x icon (not delete) when the action only removes,I,none,no,Data semantics,https://polaris-react.shopify.com/patterns/common-actions/best-practices
+R169,Polaris,ButtonGroup,Only group calls to action that relate to each other,I,none,no,,https://polaris-react.shopify.com/components/actions/button-group
+R170,Polaris,ButtonGroup,Too many CTAs leave merchants unsure; keep groups small,S,none,ext,Unspecified threshold,https://polaris-react.shopify.com/components/actions/button-group
+R171,Polaris,ButtonGroup,Consider how groups look on small screens,R,none,no,Unspecified,https://polaris-react.shopify.com/components/actions/button-group
+R172,Polaris,ButtonGroup,Groups of up to six buttons only if they are icon-only,S,none,yes,Conditional cardinality,https://polaris-react.shopify.com/components/actions/button-group
+R173,Polaris,Button,Button text in sentence case,P,none,yes,,https://polaris-react.shopify.com/components/actions/button
+R174,Polaris,Button,Links for navigation in sentences; buttons for actions,K,eslint (partial),yes,Kind by purpose; partially checkable via href,https://polaris-react.shopify.com/components/actions/button
+R175,Polaris,Button,Never mislabel a button,I,none,no,,https://polaris-react.shopify.com/components/actions/button
+R176,Polaris,Button,{verb}+{noun} labels except common actions,I,none,no,,https://polaris-react.shopify.com/components/actions/button
+R177,Polaris,Page actions,"A single primary action, on the right, matching the title-bar primary",S,none,ext,Cardinality + cross-region equality,https://polaris.shopify.com/components/page-actions
+R178,Polaris,Page actions,At most two secondary actions,S,none,yes,Cardinality,https://polaris.shopify.com/components/page-actions
+R179,Polaris,Setting toggle,"Use a default button for both states, never primary",P,none,yes,,https://polaris-react.shopify.com/components/deprecated/setting-toggle
+R180,Polaris,Setting toggle,Toggle button says exactly &apos;Turn on&apos; or &apos;Turn off&apos;,P,none,yes,Literal whitelist,https://polaris-react.shopify.com/components/deprecated/setting-toggle
+R181,Polaris,Modal,"Use modals sparingly, for confirmations and conditional changes",I,none,no,,https://shopify.dev/docs/api/app-home/polaris-web-components/overlays/modal
+R182,Polaris,Modal,"For destructive actions, explain consequences in the modal body",I,none,no,Text semantics; proxy: body non-empty,https://shopify.dev/docs/api/app-home/polaris-web-components/overlays/modal
+R183,Polaris,Modal,Avoid complex or multi-step content in modals,I,none,no,,https://shopify.dev/docs/api/app-home/polaris-web-components/overlays/modal
+R184,Spectrum,Button,Buttons must have a visible label,P,axe (partial),yes,,https://react-spectrum.adobe.com/v3/Button.html
+R185,Spectrum,Button,Icon-only buttons require an accessible label,P,axe,yes,,https://opensource.adobe.com/spectrum-web-components/components/button/
+R186,Spectrum,Button,Do not disable label wrapping; not part of the design spec,V,none,yes,,https://opensource.adobe.com/spectrum-web-components/components/button/
+R187,Spectrum,Action button,Do not use href on action buttons; use an anchor with the class,P,none,yes,Deprecated attribute,https://opensource.adobe.com/spectrum-web-components/components/action-button/
+R188,Spectrum,Colour,Do not overuse the accent colour; primary actions only,S,none,ext,Soft cardinality on accent usage,https://spectrum.adobe.com/page/color-system/
+R189,Spectrum,Colour,"Yellow, orange, chartreuse and cyan backgrounds must use black text",V,none,yes,Token pairing table,https://spectrum.adobe.com/page/color-system/
+R190,Spectrum,Colour,Colour backgrounds must meet WCAG contrast with their text,D,axe,ext,Computed contrast,https://spectrum.adobe.com/page/color-system/
+R191,Spectrum,Alert dialog,Only one alert dialog displayed at a time,S,none,yes,Cardinality,https://spectrum.adobe.com/page/alert-dialog/
+R192,Spectrum,Alert dialog,Never open an alert dialog from within another,S,none,yes,Nesting,https://spectrum.adobe.com/page/alert-dialog/
+R193,Spectrum,Alert dialog,"Stacked button groups order ascending importance, most critical at the bottom",S,none,yes,Ordering by role when vertical,https://spectrum.adobe.com/page/alert-dialog/
+R194,Spectrum,Alert dialog,Button groups stack vertically when horizontal space is limited,R,none,yes,,https://spectrum.adobe.com/page/alert-dialog/
+R195,Spectrum,Alert dialog,Use only when necessary; not for low-signal notices or excessive confirmations,I,none,no,,https://spectrum.adobe.com/page/alert-dialog/
+R196,Spectrum,Alert dialog,Description gives only the context needed for the decision,I,none,no,,https://spectrum.adobe.com/page/alert-dialog/
+R197,GOV.UK,Button,Button text in sentence case describing the action,P,none,yes,,https://design-system.service.gov.uk/components/button/
+R198,GOV.UK,Button,"Use the standard label vocabulary (Start now, Continue, Save and continue, ...)",P,none,ext,Whitelist; correct choice depends on page context,https://design-system.service.gov.uk/components/button/
+R199,GOV.UK,Button,Align the primary button to the left edge of the form,S,none,yes,,https://design-system.service.gov.uk/components/button/
+R200,GOV.UK,Button,Avoid multiple default (primary) buttons on a page,S,none,yes,Cardinality,https://design-system.service.gov.uk/components/button/
+R201,GOV.UK,Button,"Start buttons use a link tag, not a button tag",K,eslint,yes,Kind by role,https://design-system.service.gov.uk/components/button/
+R202,GOV.UK,Button,Start button only on the service start page,PL,none,ext,Page-type conditional,https://design-system.service.gov.uk/components/button/
+R203,GOV.UK,Button,Too many secondary buttons means simplify or split the page,I,none,no,,https://design-system.service.gov.uk/components/button/
+R204,GOV.UK,Button,"Warning buttons only for serious, hard-to-undo destructive actions",I,none,no,Reversibility semantics,https://design-system.service.gov.uk/components/button/
+R205,GOV.UK,Button,Destructive actions include an additional confirmation step,S,none,yes,Accompaniment (may be cross-screen),https://design-system.service.gov.uk/components/button/
+R206,GOV.UK,Button,Initial destructive CTA is another style; warning style only on final confirmation,S,none,ext,Ordering across two screens,https://design-system.service.gov.uk/components/button/
+R207,GOV.UK,Button,Do not rely on red alone; text must make the consequence clear,I,none,no,,https://design-system.service.gov.uk/components/button/
+R208,GOV.UK,Button,Inverse buttons need at least 4.5:1 contrast with the background,D,axe,ext,Computed contrast,https://design-system.service.gov.uk/components/button/
+R209,GOV.UK,Button,Avoid disabled buttons unless research supports them,I,none,no,,https://design-system.service.gov.uk/components/button/
+R210,GOV.UK,Button,Two or more adjacent buttons must be in a button group,S,none,yes,Siblings require wrapper,https://design-system.service.gov.uk/components/button/
+R211,GOV.UK,Button,Use preventDoubleClick where research shows double submissions,I,none,no,,https://design-system.service.gov.uk/components/button/
+R212,GOV.UK,Button,Show loading feedback before relying on double-click prevention,D,none,ext,Runtime,https://design-system.service.gov.uk/components/button/
