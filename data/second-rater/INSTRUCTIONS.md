@@ -50,3 +50,27 @@ Save the file with your letters filled in and send it back (keep the `ID` column
 intact — that's how the two ratings are matched). That's it.
 
 Agreement is then computed with `scripts/cohen-kappa.mjs`.
+
+## Tie-break rules (for the genuinely hard rows)
+
+A trial run found the same handful of boundaries cause almost all disagreement.
+Apply these when torn (full detail in `TIEBREAKS.md`):
+
+1. **Fixed number/token → V, not D.** A specific px/spacing/colour-pairing is
+   statically checkable (V). Use D only for facts you can't know until it renders:
+   contrast ratio, measured overflow/width, real focus/keyboard order.
+2. **V vs P.** A raw style value read from CSS (alignment, icon side, colour, wrap)
+   is **V**; a component's declared props/enums/allowed combinations is **P**.
+3. **D vs S — judge the requirement, not the trigger.** "Add a divider when the
+   body scrolls" is **S** (a divider must be present) even though the trigger is
+   runtime. Stay **D** only when the requirement itself needs real focus order,
+   measured geometry, or async state (validation, loading, server failure).
+4. **P vs I.** A mechanical string check (casing, a banned/allowed label list, a
+   format pattern, an action→icon mapping) is **P**; needing the action's *meaning*
+   or reversibility is **I**.
+5. **Soft cardinality stays S.** "Too many / sparingly / keep small" scoped to a
+   region is **S** (it has a count proxy). Use **I** only when there's no structural
+   proxy at all.
+6. **Kind vs Intent vs Property.** Mechanical element choice from a role/attribute
+   is **K**; purpose-gated substitution ("use X when the goal is Y") is **I**; a prop
+   derived from the component's own role/variant is **P**.

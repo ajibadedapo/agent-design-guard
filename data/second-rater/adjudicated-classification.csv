@@ -1,0 +1,213 @@
+ID,Class,rationale
+R001,S,
+R002,S,
+R003,S,
+R004,P,
+R005,P,
+R006,D,"visible focus indicator needs rendered check"
+R007,S,
+R008,S,
+R009,D,"click-to-dialog behavior needs event trace; runtime"
+R010,I,"explaining the outage needs content semantics"
+R011,P,"N-selected is a mechanical string/format check"
+R012,I,
+R013,I,
+R014,S,
+R015,S,
+R016,S,
+R017,I,"substitution gated on purpose (indicating selection)"
+R018,I,"substitution gated on purpose (tab navigation)"
+R019,I,
+R020,S,
+R021,I,
+R022,P,"title is a required prop not child node"
+R023,S,
+R024,S,
+R025,S,"divider must accompany scroll; requirement structural"
+R026,S,
+R027,V,"fixed 16px spacing value; statically checkable"
+R028,V,"8px spacing value; statically checkable"
+R029,D,"inside safe area needs measured layout geometry"
+R030,I,
+R031,S,
+R032,S,
+R033,D,"Esc-closes-topmost is runtime keyboard behavior"
+R034,D,"focus returns to trigger; runtime focus order"
+R035,R,
+R036,V,"16px spacing value; statically checkable"
+R037,I,
+R038,S,
+R039,S,
+R040,S,
+R041,I,
+R042,PL,"bottom-sheet is the mobile realisation of dialog"
+R043,R,
+R044,R,
+R045,I,
+R046,P,
+R047,K,
+R048,P,
+R049,P,
+R050,P,
+R051,D,"loading state when slow; runtime timing"
+R052,D,"cross-screen redirect flow; runtime navigation"
+R053,D,"move focus to parent; runtime focus"
+R054,D,"live-region announcement is runtime behavior"
+R055,D,"async failure state plus keep-open behavior"
+R056,I,
+R057,I,
+R058,I,
+R059,I,
+R060,P,"literal blacklist on title (Are you sure)"
+R061,P,"literal blacklist (Yes/OK/Confirm)"
+R062,I,
+R063,S,
+R064,K,"element-kind choice link vs button; like R201"
+R065,S,
+R066,S,
+R067,I,
+R068,P,
+R069,V,"text-align value; stylelint-checkable not a prop"
+R070,V,"icon alignment style value"
+R071,S,
+R072,S,
+R073,S,
+R074,I,
+R075,S,"position conditional on container context"
+R076,S,"alignment determined by containing component"
+R077,V,"fixed padding values; statically checkable"
+R078,I,
+R079,D,"equal rendered width needs measurement not prop"
+R080,V,"alignment style value"
+R081,S,
+R082,V,
+R083,S,
+R084,S,
+R085,S,
+R086,S,
+R087,S,
+R088,S,
+R089,S,
+R090,S,
+R091,I,
+R092,I,
+R093,P,
+R094,PL,
+R095,V,"no text-overflow ellipsis; style value"
+R096,D,"default focus on primary; runtime focus"
+R097,D,"Enter activates primary; runtime keyboard behavior"
+R098,P,
+R099,S,
+R100,S,
+R101,S,
+R102,D,"touching two edges is layout geometry"
+R103,R,
+R104,D,
+R105,I,
+R106,V,"fixed icon-size values"
+R107,V,"icon-side style value"
+R108,V,"icon colour matches label; style value"
+R109,I,
+R110,V,"fixed 8px gap value"
+R111,P,"action-to-icon mechanical mapping table"
+R112,P,"universal-icon mapping table; mechanical"
+R113,P,"target-blank implies Launch icon; mechanical prop"
+R114,S,
+R115,K,"allowed icon kind (default vs filled)"
+R116,I,
+R117,S,
+R118,V,
+R119,P,
+R120,P,"title required prop; brevity is intent"
+R121,P,"literal blacklist (avoid Done/OK)"
+R122,D,"close-X-no-submit is runtime behavior"
+R123,I,
+R124,I,
+R125,I,
+R126,D,"user-vs-system trigger provenance; runtime trace"
+R127,I,
+R128,I,"substitution gated on alert purpose"
+R129,I,"label must reflect action meaning; needs understanding"
+R130,P,"destructive confirmation maps to danger modal variant"
+R131,S,
+R132,I,
+R133,P,"passive/transactional maps to dismiss prop"
+R134,S,
+R135,S,
+R136,V,"full-bleed and bottom are style values"
+R137,V,"single-button width/position style values"
+R138,S,
+R139,S,
+R140,S,
+R141,I,
+R142,D,"initial focus plus focus trap; runtime"
+R143,D,"fixed header/footer with body scroll; runtime layout"
+R144,D,"validate-before-close is async runtime flow"
+R145,D,
+R146,D,"server-failure notification is async runtime"
+R147,I,
+R148,D,"loading overlay/disable is async runtime state"
+R149,S,
+R150,S,
+R151,S,
+R152,D,"focus returns on close; runtime focus"
+R153,D,"first-focus conditional; runtime focus"
+R154,D,"tab order; runtime focus order"
+R155,P,"single component must have label/icon; own content"
+R156,I,
+R157,I,
+R158,V,"icon-side style value"
+R159,V,
+R160,S,"variant determined by row containment"
+R161,S,
+R162,P,"destructive items own delete-icon prop"
+R163,S,
+R164,S,"position/variant/icon set by list-item containment"
+R165,D,
+R166,S,"soft cardinality; critical-button count in view"
+R167,S,"sibling variant-combination check"
+R168,I,
+R169,I,
+R170,S,"cardinality; keep group count small"
+R171,R,
+R172,S,
+R173,P,
+R174,K,
+R175,I,
+R176,I,
+R177,S,
+R178,S,
+R179,P,
+R180,P,
+R181,I,
+R182,I,
+R183,I,
+R184,P,
+R185,P,
+R186,V,"label-wrap style value"
+R187,P,"forbidden href attribute on action-button"
+R188,S,"soft cardinality on accent usage"
+R189,V,
+R190,D,
+R191,S,
+R192,S,
+R193,S,
+R194,R,
+R195,I,
+R196,I,
+R197,P,
+R198,P,
+R199,S,"alignment relative to enclosing form"
+R200,S,
+R201,K,
+R202,I,"service-start-page needs page-purpose semantics"
+R203,S,"soft cardinality; secondary-button count"
+R204,I,
+R205,S,
+R206,S,"ordering across confirmation flow"
+R207,I,
+R208,D,
+R209,I,
+R210,S,
+R211,I,
+R212,D,"show loading feedback; runtime behavior"
