@@ -1,6 +1,6 @@
-# rulveo specification: design-language conformance
+# agent-design-guard specification: design-language conformance
 
-rulveo decides whether a piece of UI **conforms** to a design language. A design
+agent-design-guard decides whether a piece of UI **conforms** to a design language. A design
 language is a set of primitives (tokens, components, roles) together with
 constraints over the interface tree. This document defines the constraint
 taxonomy the checker implements, the conformance relation, the violation/repair
@@ -14,7 +14,7 @@ shape inventory in `data/classification-findings.md`.
 
 An interface `U` is a finite ordered tree. Each node has a **kind** (component or
 native element), a **property map**, a **region/role** label, and inherits a
-**platform** from the root. rulveo builds this tree from JSX/TSX (`src/adapter.js`,
+**platform** from the root. agent-design-guard builds this tree from JSX/TSX (`src/adapter.js`,
 via Babel) or from a JSON DOM/AST snapshot (`src/adapters/dom.js`), assigns roles,
 then evaluates constraints.
 
@@ -23,7 +23,7 @@ then evaluates constraints.
 Constraints are classified by what information the check requires. This taxonomy
 determines what can be enforced and how.
 
-| Class | Name | What it checks | Decidability | rulveo shapes |
+| Class | Name | What it checks | Decidability | agent-design-guard shapes |
 |---|---|---|---|---|
 | **V** | Value | property values resolve to a token in a typed domain | static, local, linear | `token-value` |
 | **K** | Kind | node kinds are components with status ≠ forbidden; native elements replaced; deprecated warns | static, local, linear | `forbidden-kind` |
@@ -37,7 +37,7 @@ determines what can be enforced and how.
 Empirically (classification-findings.md, 212 rules across five systems): V+K+P+S+
 Π+Ρ ≈ 62% statically checkable, +15% dynamic = ~77% mechanically checkable,
 while ~10% is checked by any tool today, and **structural is the largest class
-(32%) and the least covered (3 of 68 rules)**. rulveo targets that gap.
+(32%) and the least covered (3 of 68 rules)**. agent-design-guard targets that gap.
 
 ## Conformance
 
@@ -183,7 +183,7 @@ optional top-level `when` prop-predicate evaluated on the trigger node, so
 
 ### Class Π — patterns + `--platform`
 A `pattern` is a trigger predicate + roles + structural template + per-platform
-component substitution. `rulveo check --platform web|ios|android` (default web)
+component substitution. `agent-design-guard check --platform web|ios|android` (default web)
 resolves the substitution before class-S checks: a confirmation realised with a
 platform's component that does not match the selected platform is flagged.
 
@@ -197,7 +197,7 @@ faking dynamic rendering.
 
 - **Class D (dynamic).** Computed contrast, post-layout spacing, runtime focus
   order. Checkable by execution (where accessibility tooling lives), not by static
-  analysis. rulveo does not emit fake static verdicts for these.
+  analysis. agent-design-guard does not emit fake static verdicts for these.
 - **Class I (intent).** "Feels calm", "use sparingly". Not reducible to tree
   predicates. The remedy is (a) decompose into class-S/D proxies where a number or
   annotation exists, (b) human review. Making this boundary explicit is a feature.
@@ -210,13 +210,13 @@ parent after deletion", "warning style only on the final confirmation screen",
 general. `cross-region-equality` covers the tractable in-tree slice (two regions
 in one tree). The full extension (paper §9) is a **graph of trees with navigation
 edges**: nodes are screens, edges are transitions, and constraints range over
-paths. rulveo does not build that graph; it is the primary open problem.
+paths. agent-design-guard does not build that graph; it is the primary open problem.
 
 ## CLI
 
 ```
-rulveo check <grammar.yaml> <files...> [--platform web|ios|android]
-rulveo infer <grammar.yaml> <files...>
+agent-design-guard check <grammar.yaml> <files...> [--platform web|ios|android]
+agent-design-guard infer <grammar.yaml> <files...>
 ```
 
 `check` prints `file:line [severity] ruleId message` per violation. Exit code:

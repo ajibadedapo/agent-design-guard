@@ -1,12 +1,12 @@
-# rulveo
+# agent-design-guard
 
-**rulveo** is a design-language conformance checker. It decides whether a piece
+**agent-design-guard** is a design-language conformance checker. It decides whether a piece
 of UI conforms to a design system, and returns structured violations with repair
 hints. It is the mechanical half of design review, made executable.
 
 Ordinary linters look at one node at a time (this Button has the wrong colour,
 this input is missing a label). That covers value and kind rules, which are about
-11% of what design systems actually write down. rulveo also checks the rules that
+11% of what design systems actually write down. agent-design-guard also checks the rules that
 only exist in the *relationships* between nodes: "at most one primary action per
 region", "a destructive action must be accompanied by a confirmation", "nothing
 navigational inside a modal", "the button set in this group must be an allowed
@@ -15,7 +15,7 @@ combination".
 > On a sample of 212 documented rules across GitHub Primer, IBM Carbon, Shopify
 > Polaris, Adobe Spectrum and GOV.UK: **~77% of design-system rules are
 > mechanically checkable, ~10% are checked by any tool today, and structural
-> rules are the largest class (32%) and the least covered (3 of 68).** rulveo
+> rules are the largest class (32%) and the least covered (3 of 68).** agent-design-guard
 > targets that gap. (See `data/classification-findings.md`.)
 
 ## The eight constraint classes
@@ -24,7 +24,7 @@ Every rule is tagged with the class it belongs to. The taxonomy is the point: it
 separates what can be enforced statically, what needs rendering, and what cannot
 be formalised at all.
 
-| Class | What | rulveo |
+| Class | What | agent-design-guard |
 |---|---|---|
 | **V** Value | values resolve to a token | `token-value` |
 | **K** Kind | components not forbidden; natives replaced; deprecated warns | `forbidden-kind` |
@@ -111,9 +111,9 @@ constraints:
 
 ```
 npm install
-npx rulveo check grammars/primer.yaml fixtures/bad.tsx     # 14 violations, one per rule
-npx rulveo check grammars/primer.yaml fixtures/good.tsx    # clean, exit 0
-npx rulveo check grammars/primer.yaml fixtures/platform.tsx --platform ios
+npx agent-design-guard check grammars/primer.yaml fixtures/bad.tsx     # 14 violations, one per rule
+npx agent-design-guard check grammars/primer.yaml fixtures/good.tsx    # clean, exit 0
+npx agent-design-guard check grammars/primer.yaml fixtures/platform.tsx --platform ios
 ```
 
 The CLI prints each violation as `file:line [severity] rule-id message`, ranked
@@ -121,7 +121,7 @@ by file and line, and exits nonzero when any error/warning is found (notes do no
 fail). See `DOGFOOD.md` for a run against the real ServicePilot app with
 `grammars/heroui.yaml`.
 
-`rulveo infer` observes how roles co-occur across the inputs and proposes
+`agent-design-guard infer` observes how roles co-occur across the inputs and proposes
 candidate rules for a human to accept; it never edits the grammar.
 
 ## Development

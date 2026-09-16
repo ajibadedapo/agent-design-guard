@@ -7,9 +7,9 @@ import { inferProposals, formatProposals } from './infer.js';
 
 const USAGE = [
   'usage:',
-  '  rulveo check <grammar.yaml> <files...> [--platform web|ios|android]',
+  '  agent-design-guard check <grammar.yaml> <files...> [--platform web|ios|android]',
   '      check .tsx/.jsx source or .json DOM snapshot',
-  '  rulveo infer <grammar.yaml> <files...>',
+  '  agent-design-guard infer <grammar.yaml> <files...>',
   '      propose candidate rules from role definitions'
 ].join('\n');
 

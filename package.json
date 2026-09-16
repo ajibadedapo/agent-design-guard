@@ -1,25 +1,29 @@
 {
-  "name": "rulveo",
+  "name": "agent-design-guard",
   "version": "0.0.1",
-  "description": "A checker for structural design-system rules over the UI element tree.",
+  "description": "Design-system conformance for AI-generated UI. Verifies that generated interface code conforms to your design language (tokens, components, and structural rules) that per-node linters can't see.",
   "type": "module",
   "license": "MIT",
   "author": "Hammed Ajibade",
   "keywords": [
     "design-system",
+    "conformance",
+    "ai",
+    "agent",
     "linter",
     "jsx",
     "tsx",
-    "structural",
-    "grammar"
+    "design-tokens",
+    "structural"
   ],
   "main": "src/index.js",
   "bin": {
-    "rulveo": "bin/rulveo.js"
+    "agent-design-guard": "bin/agent-design-guard.js",
+    "adg": "bin/agent-design-guard.js"
   },
   "scripts": {
     "test": "node --test",
-    "check": "node bin/rulveo.js check grammars/primer.yaml fixtures/bad.tsx fixtures/good.tsx"
+    "check": "node bin/agent-design-guard.js check grammars/primer.yaml fixtures/bad.tsx fixtures/good.tsx"
   },
   "files": [
     "bin",

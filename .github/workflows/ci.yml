@@ -20,5 +20,5 @@ jobs:
         run: node --test
       - name: Run checker against fixtures
         run: |
-          node bin/rulveo.js check grammars/primer.yaml fixtures/good.tsx
-          node bin/rulveo.js check grammars/primer.yaml fixtures/platform.tsx --platform ios
+          node bin/agent-design-guard.js check grammars/primer.yaml fixtures/good.tsx
+          node bin/agent-design-guard.js check grammars/primer.yaml fixtures/platform.tsx --platform ios

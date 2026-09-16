@@ -1,4 +1,4 @@
-# Dogfood: rulveo on the ServicePilot app
+# Dogfood: agent-design-guard on the ServicePilot app
 
 This is the "point the checker at a real app" report. The target is ServicePilot,
 a React Native app built on a HeroUI Native + Uniwind `src/ui` kit. Its design
@@ -18,7 +18,7 @@ app's real components, and nine `constraints` spanning four constraint classes
 ## Command
 
 ```
-node bin/rulveo.js check grammars/heroui.yaml \
+node bin/agent-design-guard.js check grammars/heroui.yaml \
   <servicepilot>/mobile/src/screens/auth/*.tsx \
   <servicepilot>/mobile/src/screens/chat/*.tsx \
   <servicepilot>/mobile/src/screens/home/*.tsx \
