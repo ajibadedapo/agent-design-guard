@@ -1,0 +1,29 @@
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+      - name: Use latest npm (OIDC trusted publishing support)
+        run: npm install -g npm@latest
+      - name: Install
+        run: npm ci || npm install
+      - name: Test
+        run: npm test
+      - name: Publish (OIDC, no token)
+        run: npm publish --access public --provenance
